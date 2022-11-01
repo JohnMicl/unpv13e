@@ -22,13 +22,17 @@ main(int argc, char **argv)
 	if (connect(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0)
 		err_sys("connect error");
 
+	int cnt = 0;
 	while ( (n = read(sockfd, recvline, MAXLINE)) > 0) {
+		cnt++;
 		recvline[n] = 0;	/* null terminate */
 		if (fputs(recvline, stdout) == EOF)
 			err_sys("fputs error");
+		printf("\n");
 	}
 	if (n < 0)
 		err_sys("read error");
+	printf("cnt=%d\n", cnt);
 
 	exit(0);
 }
